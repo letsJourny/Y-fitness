@@ -28,11 +28,26 @@ export default function Navigation({
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
 
+  const handleAnchorClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    const targetId = href.substring(1); // Remove the # symbol
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      // Update URL without page reload
+      window.history.pushState(null, "", href);
+    }
+  };
+
   const publicNavItems = [
     { label: "Home", href: "/" },
-    { label: "Features", href: "/#features" },
-    { label: "About", href: "/#about" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Features", href: "#features", isAnchor: true },
+    { label: "About", href: "#about", isAnchor: true },
+    { label: "Contact", href: "#contact", isAnchor: true },
   ];
 
   const userNavItems = [
@@ -77,6 +92,22 @@ export default function Navigation({
                 (item.href.startsWith("/#") &&
                   location.pathname === "/" &&
                   location.hash === item.href.substring(1));
+
+              if ("isAnchor" in item && item.isAnchor) {
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => handleAnchorClick(e, item.href)}
+                    className={`flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary cursor-pointer ${
+                      isActive ? "text-primary" : "text-muted-foreground"
+                    }`}
+                  >
+                    {Icon && <Icon className="w-4 h-4" />}
+                    <span>{item.label}</span>
+                  </a>
+                );
+              }
 
               return (
                 <Link
@@ -152,6 +183,25 @@ export default function Navigation({
               {navItems.map((item) => {
                 const Icon = "icon" in item ? item.icon : null;
                 const isActive = location.pathname === item.href;
+
+                if ("isAnchor" in item && item.isAnchor) {
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={(e) => {
+                        handleAnchorClick(e, item.href);
+                        setIsMenuOpen(false);
+                      }}
+                      className={`flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary cursor-pointer ${
+                        isActive ? "text-primary" : "text-muted-foreground"
+                      }`}
+                    >
+                      {Icon && <Icon className="w-4 h-4" />}
+                      <span>{item.label}</span>
+                    </a>
+                  );
+                }
 
                 return (
                   <Link
