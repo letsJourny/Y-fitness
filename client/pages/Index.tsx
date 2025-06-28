@@ -164,39 +164,52 @@ export default function Index() {
             </div>
 
             <div className="relative">
-              <div className="relative z-10 bg-card rounded-3xl p-8 shadow-2xl border">
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold">Today's Progress</h3>
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                      <Trophy className="w-6 h-6 text-primary" />
+              {/* Hero Image with Overlay */}
+              <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl">
+                <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 via-primary/30 to-primary/40">
+                  <div className="w-full h-full flex items-center justify-center relative">
+                    {/* Fitness Icons Grid */}
+                    <div className="grid grid-cols-3 gap-8">
+                      <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                        <Dumbbell className="w-8 h-8 text-primary" />
+                      </div>
+                      <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                        <Target className="w-8 h-8 text-primary" />
+                      </div>
+                      <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                        <Trophy className="w-8 h-8 text-primary" />
+                      </div>
+                      <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                        <Heart className="w-8 h-8 text-primary" />
+                      </div>
+                      <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                        <Zap className="w-8 h-8 text-primary" />
+                      </div>
+                      <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                        <BarChart3 className="w-8 h-8 text-primary" />
+                      </div>
+                    </div>
+
+                    {/* Central Focus Element */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-32 h-32 bg-primary/10 rounded-full flex items-center justify-center backdrop-blur-lg border border-primary/20">
+                        <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center">
+                          <Play className="w-10 h-10 text-primary-foreground ml-1" />
+                        </div>
+                      </div>
                     </div>
                   </div>
+                </div>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Workouts</span>
-                      <span className="font-semibold">3/3 ✓</span>
-                    </div>
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div className="bg-primary h-2 rounded-full w-full"></div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Calories</span>
-                      <span className="font-semibold">1,847/2,100</span>
-                    </div>
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div className="bg-primary h-2 rounded-full w-4/5"></div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Steps</span>
-                      <span className="font-semibold">8,342/10,000</span>
-                    </div>
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div className="bg-primary h-2 rounded-full w-4/5"></div>
-                    </div>
+                {/* Overlay Text */}
+                <div className="absolute bottom-6 left-6 right-6 text-center">
+                  <div className="bg-background/95 backdrop-blur-sm rounded-2xl p-4 border">
+                    <p className="text-sm font-medium text-foreground">
+                      Start your transformation today
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Join thousands achieving their fitness goals
+                    </p>
                   </div>
                 </div>
               </div>
@@ -204,6 +217,8 @@ export default function Index() {
               {/* Floating elements */}
               <div className="absolute -top-4 -right-4 w-16 h-16 bg-primary/20 rounded-full blur-xl"></div>
               <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-accent/30 rounded-full blur-2xl"></div>
+              <div className="absolute top-1/2 -left-4 w-12 h-12 bg-primary/30 rounded-full blur-lg"></div>
+              <div className="absolute bottom-1/4 -right-6 w-20 h-20 bg-accent/20 rounded-full blur-xl"></div>
             </div>
           </div>
         </div>
