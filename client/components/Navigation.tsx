@@ -8,9 +8,12 @@ import {
   Calendar,
   CreditCard,
   Shield,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface NavigationProps {
   isAuthenticated?: boolean;
@@ -23,6 +26,7 @@ export default function Navigation({
 }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   const publicNavItems = [
     { label: "Home", href: "/" },
@@ -87,8 +91,21 @@ export default function Navigation({
             })}
           </div>
 
-          {/* Auth Buttons */}
+          {/* Theme Toggle & Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleTheme}
+              className="w-9 h-9 p-0"
+            >
+              {theme === "light" ? (
+                <Moon className="w-4 h-4" />
+              ) : (
+                <Sun className="w-4 h-4" />
+              )}
+            </Button>
+
             {!isAuthenticated ? (
               <>
                 <Link to="/registration">
@@ -149,24 +166,51 @@ export default function Navigation({
                 );
               })}
 
-              {!isAuthenticated && (
-                <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-                  <Link to="/registration" onClick={() => setIsMenuOpen(false)}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="w-full justify-start"
+              <div className="flex flex-col space-y-2 pt-4 border-t border-border">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleTheme}
+                  className="w-full justify-start"
+                >
+                  {theme === "light" ? (
+                    <>
+                      <Moon className="w-4 h-4 mr-2" />
+                      Dark Mode
+                    </>
+                  ) : (
+                    <>
+                      <Sun className="w-4 h-4 mr-2" />
+                      Light Mode
+                    </>
+                  )}
+                </Button>
+
+                {!isAuthenticated && (
+                  <>
+                    <Link
+                      to="/registration"
+                      onClick={() => setIsMenuOpen(false)}
                     >
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link to="/registration" onClick={() => setIsMenuOpen(false)}>
-                    <Button size="sm" className="w-full">
-                      Get Started
-                    </Button>
-                  </Link>
-                </div>
-              )}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-full justify-start"
+                      >
+                        Sign In
+                      </Button>
+                    </Link>
+                    <Link
+                      to="/registration"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <Button size="sm" className="w-full">
+                        Get Started
+                      </Button>
+                    </Link>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         )}
