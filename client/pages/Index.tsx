@@ -15,6 +15,10 @@ import {
   Trophy,
   Heart,
   Zap,
+  Mail,
+  Phone,
+  MapPin,
+  ChevronDown,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -387,6 +391,345 @@ export default function Index() {
             <div className="flex items-center space-x-2 text-primary-foreground/90">
               <CheckCircle className="w-5 h-5" />
               <span>Cancel anytime</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-24 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+              About Yousef Recharge
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Empowering your fitness journey with science-backed methods and
+              personalized guidance for lasting transformation.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-foreground">
+                Our Mission
+              </h3>
+              <p className="text-muted-foreground text-lg">
+                At Yousef Recharge, we believe fitness should be accessible,
+                sustainable, and tailored to your unique lifestyle. Our platform
+                combines cutting-edge technology with proven fitness science to
+                deliver personalized workout and nutrition plans that actually
+                work.
+              </p>
+              <p className="text-muted-foreground">
+                Founded by fitness enthusiasts and backed by certified
+                nutritionists and personal trainers, we've helped over 50,000
+                people achieve their health and fitness goals. Whether you're
+                just starting your journey or looking to break through a
+                plateau, we're here to support you every step of the way.
+              </p>
+            </div>
+
+            <div className="relative">
+              <div className="bg-gradient-to-br from-primary/20 to-accent/30 rounded-3xl p-8">
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <Users className="w-8 h-8 text-primary" />
+                    </div>
+                    <div className="text-2xl font-bold text-foreground">
+                      50K+
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Happy Users
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <Trophy className="w-8 h-8 text-primary" />
+                    </div>
+                    <div className="text-2xl font-bold text-foreground">
+                      95%
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Success Rate
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <Clock className="w-8 h-8 text-primary" />
+                    </div>
+                    <div className="text-2xl font-bold text-foreground">5+</div>
+                    <div className="text-sm text-muted-foreground">
+                      Years Experience
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <Target className="w-8 h-8 text-primary" />
+                    </div>
+                    <div className="text-2xl font-bold text-foreground">
+                      24/7
+                    </div>
+                    <div className="text-sm text-muted-foreground">Support</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Our Values */}
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Heart className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="text-xl font-semibold text-foreground mb-2">
+                Health First
+              </h4>
+              <p className="text-muted-foreground">
+                Your health and well-being are our top priority. Every plan is
+                designed with safety and sustainability in mind.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="text-xl font-semibold text-foreground mb-2">
+                Innovation
+              </h4>
+              <p className="text-muted-foreground">
+                We leverage the latest fitness technology and research to
+                provide you with the most effective training methods.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="text-xl font-semibold text-foreground mb-2">
+                Community
+              </h4>
+              <p className="text-muted-foreground">
+                Join a supportive community of like-minded individuals on their
+                own fitness journeys.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+              Get in Touch
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Have questions? We'd love to hear from you. Send us a message and
+              we'll respond as soon as possible.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <Card className="border-0 shadow-lg">
+              <CardHeader>
+                <CardTitle>Send us a Message</CardTitle>
+                <CardDescription>
+                  Fill out the form below and we'll get back to you within 24
+                  hours.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">First Name</label>
+                    <input
+                      type="text"
+                      placeholder="John"
+                      className="w-full px-3 py-2 border rounded-md bg-background"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Last Name</label>
+                    <input
+                      type="text"
+                      placeholder="Doe"
+                      className="w-full px-3 py-2 border rounded-md bg-background"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Email</label>
+                  <input
+                    type="email"
+                    placeholder="john@example.com"
+                    className="w-full px-3 py-2 border rounded-md bg-background"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Subject</label>
+                  <select className="w-full px-3 py-2 border rounded-md bg-background">
+                    <option>General Inquiry</option>
+                    <option>Technical Support</option>
+                    <option>Billing Question</option>
+                    <option>Partnership</option>
+                    <option>Feedback</option>
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Message</label>
+                  <textarea
+                    placeholder="Tell us how we can help you..."
+                    rows={5}
+                    className="w-full px-3 py-2 border rounded-md bg-background resize-none"
+                  />
+                </div>
+
+                <Button className="w-full" size="lg">
+                  Send Message
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Contact Information */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-6">
+                  Contact Information
+                </h3>
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <Mail className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground">Email</h4>
+                      <p className="text-muted-foreground">
+                        support@yousefrecharge.com
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        We typically respond within 24 hours
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <Phone className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground">Phone</h4>
+                      <p className="text-muted-foreground">+965 1234 5678</p>
+                      <p className="text-sm text-muted-foreground">
+                        Mon-Fri 9:00 AM - 6:00 PM (Kuwait Time)
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <MapPin className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground">Office</h4>
+                      <p className="text-muted-foreground">
+                        Kuwait City, Kuwait
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Headquarters & Support Center
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* FAQ Section */}
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-4">
+                  Frequently Asked Questions
+                </h3>
+                <div className="space-y-4">
+                  <details className="group border rounded-lg">
+                    <summary className="flex items-center justify-between p-4 cursor-pointer">
+                      <span className="font-medium">
+                        How do I cancel my subscription?
+                      </span>
+                      <ChevronDown className="w-4 h-4 group-open:rotate-180 transition-transform" />
+                    </summary>
+                    <div className="px-4 pb-4 text-sm text-muted-foreground">
+                      You can cancel your subscription at any time from your
+                      account settings or by contacting our support team.
+                    </div>
+                  </details>
+
+                  <details className="group border rounded-lg">
+                    <summary className="flex items-center justify-between p-4 cursor-pointer">
+                      <span className="font-medium">
+                        Do you offer personal training?
+                      </span>
+                      <ChevronDown className="w-4 h-4 group-open:rotate-180 transition-transform" />
+                    </summary>
+                    <div className="px-4 pb-4 text-sm text-muted-foreground">
+                      Yes! Our premium plans include access to certified
+                      personal trainers for one-on-one guidance.
+                    </div>
+                  </details>
+
+                  <details className="group border rounded-lg">
+                    <summary className="flex items-center justify-between p-4 cursor-pointer">
+                      <span className="font-medium">
+                        Is there a mobile app?
+                      </span>
+                      <ChevronDown className="w-4 h-4 group-open:rotate-180 transition-transform" />
+                    </summary>
+                    <div className="px-4 pb-4 text-sm text-muted-foreground">
+                      Our web app is fully mobile-responsive. Native iOS and
+                      Android apps are coming soon!
+                    </div>
+                  </details>
+                </div>
+              </div>
+
+              {/* Social Links */}
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-4">
+                  Follow Us
+                </h3>
+                <div className="flex space-x-4">
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center hover:bg-primary/20 transition-colors"
+                  >
+                    <span className="text-primary font-bold">f</span>
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center hover:bg-primary/20 transition-colors"
+                  >
+                    <span className="text-primary font-bold">@</span>
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center hover:bg-primary/20 transition-colors"
+                  >
+                    <span className="text-primary font-bold">in</span>
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center hover:bg-primary/20 transition-colors"
+                  >
+                    <span className="text-primary font-bold">yt</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
