@@ -43,8 +43,22 @@ export default function Navigation({
     }
   };
 
+  const handleHomeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      // Already on home page, scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } else {
+      // Navigate to home page
+      window.location.href = "/";
+    }
+  };
+
   const publicNavItems = [
-    { label: "Home", href: "/" },
+    { label: "Home", href: "/", isHome: true },
     { label: "Features", href: "#features", isAnchor: true },
     { label: "About", href: "#about", isAnchor: true },
     { label: "Contact", href: "#contact", isAnchor: true },
@@ -74,15 +88,18 @@ export default function Navigation({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <a
+            href="/"
+            onClick={handleHomeClick}
+            className="flex items-center space-x-2 cursor-pointer"
+          >
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Dumbbell className="w-5 h-5 text-primary-foreground" />
             </div>
             <span className="text-xl font-bold text-foreground">
               Yousef Recharge
             </span>
-          </Link>
-
+          </a>
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => {
@@ -99,6 +116,22 @@ export default function Navigation({
                     key={item.href}
                     href={item.href}
                     onClick={(e) => handleAnchorClick(e, item.href)}
+                    className={`flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary cursor-pointer ${
+                      isActive ? "text-primary" : "text-muted-foreground"
+                    }`}
+                  >
+                    {Icon && <Icon className="w-4 h-4" />}
+                    <span>{item.label}</span>
+                  </a>
+                );
+              }
+
+              if ("isHome" in item && item.isHome) {
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={handleHomeClick}
                     className={`flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary cursor-pointer ${
                       isActive ? "text-primary" : "text-muted-foreground"
                     }`}
@@ -191,6 +224,25 @@ export default function Navigation({
                       href={item.href}
                       onClick={(e) => {
                         handleAnchorClick(e, item.href);
+                        setIsMenuOpen(false);
+                      }}
+                      className={`flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary cursor-pointer ${
+                        isActive ? "text-primary" : "text-muted-foreground"
+                      }`}
+                    >
+                      {Icon && <Icon className="w-4 h-4" />}
+                      <span>{item.label}</span>
+                    </a>
+                  );
+                }
+
+                if ("isHome" in item && item.isHome) {
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={(e) => {
+                        handleHomeClick(e);
                         setIsMenuOpen(false);
                       }}
                       className={`flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary cursor-pointer ${
