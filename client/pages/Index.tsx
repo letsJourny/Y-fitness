@@ -354,7 +354,7 @@ export default function Index() {
             <Button
               size="lg"
               variant="outline"
-              className="text-lg px-8 py-6 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10"
+              className="text-lg px-8 py-6 border-primary-foreground/20 hover:bg-primary-foreground/10 hover:text-primary"
             >
               Learn More
             </Button>
