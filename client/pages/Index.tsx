@@ -85,7 +85,7 @@ export default function Index() {
       role: "Busy Professional",
       image: "/placeholder.svg",
       rating: 5,
-      text: "FitPro transformed my lifestyle! I lost 20 pounds in 3 months while building strength. The personalized plans fit perfectly into my hectic schedule.",
+      text: "Yousef Recharge transformed my lifestyle! I lost 20 pounds in 3 months while building strength. The personalized plans fit perfectly into my hectic schedule.",
     },
     {
       name: "Mike Chen",
@@ -99,7 +99,7 @@ export default function Index() {
       role: "New Mom",
       image: "/placeholder.svg",
       rating: 5,
-      text: "Post-pregnancy fitness felt overwhelming until I found FitPro. The nutrition guidance and flexible workouts helped me regain my confidence and energy.",
+      text: "Post-pregnancy fitness felt overwhelming until I found Yousef Recharge. The nutrition guidance and flexible workouts helped me regain my confidence and energy.",
     },
   ];
 
@@ -248,7 +248,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-foreground">
-              Why Choose FitPro?
+              Why Choose Yousef Recharge?
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Join the fitness revolution with science-backed methods and
@@ -286,7 +286,7 @@ export default function Index() {
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Real results from real people who transformed their lives with
-              FitPro.
+              Yousef Recharge.
             </p>
           </div>
 
@@ -387,7 +387,7 @@ export default function Index() {
                   <Dumbbell className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <span className="text-xl font-bold text-foreground">
-                  FitPro
+                  Yousef Recharge
                 </span>
               </div>
               <p className="text-muted-foreground">
@@ -471,7 +471,7 @@ export default function Index() {
 
           <div className="border-t border-border mt-12 pt-8 text-center">
             <p className="text-muted-foreground">
-              © 2024 FitPro. All rights reserved.
+              © 2024 Yousef Recharge. All rights reserved.
             </p>
           </div>
         </div>
