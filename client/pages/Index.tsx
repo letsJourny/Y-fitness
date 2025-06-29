@@ -27,8 +27,8 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-// import { useLanguage } from "@/contexts/LanguageContext";
-// import { getTranslation } from "@/utils/translations";
+import { useLanguage } from "@/contexts/MinimalContexts";
+import { getTranslation } from "@/utils/translations";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { FormError } from "@/components/ui/form-error";
 import { showToast } from "@/components/ui/toast-notification";
@@ -38,25 +38,8 @@ import React, { useState } from "react";
 // import SEO, { seoConfigs } from "@/components/SEO";
 
 export default function Index() {
-  // const { language } = useLanguage();
-  // const t = getTranslation(language);
-  const language = "en";
-  const t = {
-    nav: {
-      home: "Home",
-      features: "Features",
-      pricing: "Pricing",
-      about: "About",
-      contact: "Contact",
-    },
-    hero: {
-      title: "Transform Your Body, Transform Your Life",
-      subtitle:
-        "Join Yousef Recharge and discover your ultimate fitness potential with personalized workout plans, nutrition guidance, and expert coaching.",
-    },
-    cta: { getStarted: "Get Started", learnMore: "Learn More" },
-    features: { title: "Everything You Need to Succeed" },
-  };
+  const { language } = useLanguage();
+  const t = getTranslation(language);
 
   // Contact form state
   const [contactFormData, setContactFormData] = useState({
