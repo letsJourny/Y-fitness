@@ -27,65 +27,60 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getTranslation } from "@/utils/translations";
 
 export default function Index() {
+  const { language } = useLanguage();
+  const t = getTranslation(language);
   const features = [
     {
       icon: Dumbbell,
-      title: "Workout Tracking",
-      description:
-        "Track your workouts with detailed exercise logs, progress photos, and performance metrics.",
+      title: t.landing.workoutTracking,
+      description: t.landing.workoutTrackingDesc,
     },
     {
       icon: Apple,
-      title: "Meal Logging",
-      description:
-        "Log your meals with nutritional information, calorie counting, and macro tracking.",
+      title: t.landing.mealLogging,
+      description: t.landing.mealLoggingDesc,
     },
     {
       icon: BarChart3,
-      title: "Progress Dashboard",
-      description:
-        "Visualize your fitness journey with comprehensive charts and progress analytics.",
+      title: t.landing.progressDashboard,
+      description: t.landing.progressDashboardDesc,
     },
   ];
 
   const benefits = [
     {
       icon: Target,
-      title: "Personalized Plans",
-      description:
-        "Get custom workout and nutrition plans tailored to your specific goals and preferences.",
+      title: t.landing.personalizedPlans,
+      description: t.landing.personalizedPlansDesc,
     },
     {
       icon: Clock,
-      title: "Time Efficient",
-      description:
-        "Quick 20-30 minute workouts that fit into your busy schedule.",
+      title: t.landing.timeEfficient,
+      description: t.landing.timeEfficientDesc,
     },
     {
       icon: Users,
-      title: "Expert Guidance",
-      description:
-        "Access to certified trainers and nutritionists for professional support.",
+      title: t.landing.expertGuidance,
+      description: t.landing.expertGuidanceDesc,
     },
     {
       icon: Trophy,
-      title: "Proven Results",
-      description:
-        "Join thousands of users who have achieved their fitness goals with our platform.",
+      title: t.landing.provenResults,
+      description: t.landing.provenResultsDesc,
     },
     {
       icon: Heart,
-      title: "Health Focused",
-      description:
-        "Holistic approach to wellness including mental health and lifestyle improvements.",
+      title: t.landing.healthFocused,
+      description: t.landing.healthFocusedDesc,
     },
     {
       icon: Zap,
-      title: "Fast Results",
-      description:
-        "See measurable improvements in strength, endurance, and body composition.",
+      title: t.landing.fastResults,
+      description: t.landing.fastResultsDesc,
     },
   ];
 
@@ -124,20 +119,20 @@ export default function Index() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                  Transform Your
-                  <span className="text-primary"> Fitness Journey</span>
+                  {t.landing.heroTitle}
+                  <span className="text-primary">
+                    {t.landing.heroTitleHighlight}
+                  </span>
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-lg">
-                  Get personalized workout and nutrition plans that adapt to
-                  your lifestyle. Track progress, stay motivated, and achieve
-                  lasting results.
+                  {t.landing.heroSubtitle}
                 </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/registration">
                   <Button size="lg" className="text-lg px-8 py-6">
-                    Get Started Free
+                    {t.landing.getStartedFree}
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
@@ -147,7 +142,7 @@ export default function Index() {
                   className="text-lg px-8 py-6"
                 >
                   <Play className="mr-2 w-5 h-5" />
-                  Watch Demo
+                  {t.landing.watchDemo}
                 </Button>
               </div>
 
@@ -155,19 +150,19 @@ export default function Index() {
                 <div className="text-center">
                   <div className="text-2xl font-bold text-foreground">50K+</div>
                   <div className="text-sm text-muted-foreground">
-                    Active Users
+                    {t.landing.activeUsers}
                   </div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-foreground">95%</div>
                   <div className="text-sm text-muted-foreground">
-                    Success Rate
+                    {t.landing.successRate}
                   </div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-foreground">4.9</div>
                   <div className="text-sm text-muted-foreground">
-                    App Rating
+                    {t.landing.appRating}
                   </div>
                 </div>
               </div>
@@ -239,11 +234,10 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-foreground">
-              Everything You Need to Succeed
+              {t.landing.featuresTitle}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Our comprehensive platform provides all the tools and guidance you
-              need to achieve your fitness goals.
+              {t.landing.featuresSubtitle}
             </p>
           </div>
 
@@ -273,11 +267,10 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-foreground">
-              Why Choose Yousef Recharge?
+              {t.landing.benefitsTitle}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Join the fitness revolution with science-backed methods and
-              personalized guidance.
+              {t.landing.benefitsSubtitle}
             </p>
           </div>
 
@@ -307,11 +300,10 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-foreground">
-              Success Stories
+              {t.landing.testimonialsTitle}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Real results from real people who transformed their lives with
-              Yousef Recharge.
+              {t.landing.testimonialsSubtitle}
             </p>
           </div>
 
@@ -358,11 +350,10 @@ export default function Index() {
       <section className="py-24 bg-gradient-to-r from-primary to-primary/80">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           <h2 className="text-3xl md:text-5xl font-bold text-primary-foreground">
-            Ready to Start Your Transformation?
+            {t.landing.ctaTitle}
           </h2>
           <p className="text-xl text-primary-foreground/90 max-w-2xl mx-auto">
-            Join thousands of users who have already transformed their lives.
-            Get started with your personalized fitness plan today.
+            {t.landing.ctaSubtitle}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -372,7 +363,7 @@ export default function Index() {
                 variant="secondary"
                 className="text-lg px-8 py-6"
               >
-                Start Free Trial
+                {t.landing.startFreeTrial}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
@@ -381,22 +372,22 @@ export default function Index() {
               variant="outline"
               className="text-lg px-8 py-6 border-primary-foreground/20 hover:bg-primary-foreground/10 hover:text-primary"
             >
-              Learn More
+              {t.landing.learnMore}
             </Button>
           </div>
 
           <div className="flex items-center justify-center space-x-8 pt-8">
             <div className="flex items-center space-x-2 text-primary-foreground/90">
               <CheckCircle className="w-5 h-5" />
-              <span>No credit card required</span>
+              <span>{t.landing.noCreditCard}</span>
             </div>
             <div className="flex items-center space-x-2 text-primary-foreground/90">
               <CheckCircle className="w-5 h-5" />
-              <span>7-day free trial</span>
+              <span>{t.landing.freeTrial}</span>
             </div>
             <div className="flex items-center space-x-2 text-primary-foreground/90">
               <CheckCircle className="w-5 h-5" />
-              <span>Cancel anytime</span>
+              <span>{t.landing.cancelAnytime}</span>
             </div>
           </div>
         </div>
@@ -407,33 +398,22 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-foreground">
-              About Yousef Recharge
+              {t.landing.aboutTitle}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Empowering your fitness journey with science-backed methods and
-              personalized guidance for lasting transformation.
+              {t.landing.aboutSubtitle}
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-foreground">
-                Our Mission
+                {t.landing.ourMission}
               </h3>
               <p className="text-muted-foreground text-lg">
-                At Yousef Recharge, we believe fitness should be accessible,
-                sustainable, and tailored to your unique lifestyle. Our platform
-                combines cutting-edge technology with proven fitness science to
-                deliver personalized workout and nutrition plans that actually
-                work.
+                {t.landing.missionText1}
               </p>
-              <p className="text-muted-foreground">
-                Founded by fitness enthusiasts and backed by certified
-                nutritionists and personal trainers, we've helped over 50,000
-                people achieve their health and fitness goals. Whether you're
-                just starting your journey or looking to break through a
-                plateau, we're here to support you every step of the way.
-              </p>
+              <p className="text-muted-foreground">{t.landing.missionText2}</p>
             </div>
 
             <div className="relative">
@@ -447,7 +427,7 @@ export default function Index() {
                       50K+
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      Happy Users
+                      {t.landing.happyUsers}
                     </div>
                   </div>
                   <div className="text-center">
@@ -458,7 +438,7 @@ export default function Index() {
                       95%
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      Success Rate
+                      {t.landing.successRate}
                     </div>
                   </div>
                   <div className="text-center">
@@ -467,7 +447,7 @@ export default function Index() {
                     </div>
                     <div className="text-2xl font-bold text-foreground">5+</div>
                     <div className="text-sm text-muted-foreground">
-                      Years Experience
+                      {t.landing.yearsExperience}
                     </div>
                   </div>
                   <div className="text-center">
@@ -477,7 +457,9 @@ export default function Index() {
                     <div className="text-2xl font-bold text-foreground">
                       24/7
                     </div>
-                    <div className="text-sm text-muted-foreground">Support</div>
+                    <div className="text-sm text-muted-foreground">
+                      {t.landing.support}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -491,11 +473,10 @@ export default function Index() {
                 <Heart className="w-8 h-8 text-primary" />
               </div>
               <h4 className="text-xl font-semibold text-foreground mb-2">
-                Health First
+                {t.landing.healthFirst}
               </h4>
               <p className="text-muted-foreground">
-                Your health and well-being are our top priority. Every plan is
-                designed with safety and sustainability in mind.
+                {t.landing.healthFirstDesc}
               </p>
             </div>
             <div className="text-center">
@@ -503,11 +484,10 @@ export default function Index() {
                 <Zap className="w-8 h-8 text-primary" />
               </div>
               <h4 className="text-xl font-semibold text-foreground mb-2">
-                Innovation
+                {t.landing.innovation}
               </h4>
               <p className="text-muted-foreground">
-                We leverage the latest fitness technology and research to
-                provide you with the most effective training methods.
+                {t.landing.innovationDesc}
               </p>
             </div>
             <div className="text-center">
@@ -515,12 +495,9 @@ export default function Index() {
                 <Users className="w-8 h-8 text-primary" />
               </div>
               <h4 className="text-xl font-semibold text-foreground mb-2">
-                Community
+                {t.landing.community}
               </h4>
-              <p className="text-muted-foreground">
-                Join a supportive community of like-minded individuals on their
-                own fitness journeys.
-              </p>
+              <p className="text-muted-foreground">{t.landing.communityDesc}</p>
             </div>
           </div>
         </div>
@@ -531,11 +508,10 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-foreground">
-              Get in Touch
+              {t.landing.contactTitle}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Have questions? We'd love to hear from you. Send us a message and
-              we'll respond as soon as possible.
+              {t.landing.contactSubtitle}
             </p>
           </div>
 
@@ -543,16 +519,15 @@ export default function Index() {
             {/* Contact Form */}
             <Card className="border-0 shadow-lg">
               <CardHeader>
-                <CardTitle>Send us a Message</CardTitle>
-                <CardDescription>
-                  Fill out the form below and we'll get back to you within 24
-                  hours.
-                </CardDescription>
+                <CardTitle>{t.landing.sendMessage}</CardTitle>
+                <CardDescription>{t.landing.contactFormDesc}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">First Name</label>
+                    <label className="text-sm font-medium">
+                      {t.landing.firstName}
+                    </label>
                     <input
                       type="text"
                       placeholder="John"
@@ -560,7 +535,9 @@ export default function Index() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Last Name</label>
+                    <label className="text-sm font-medium">
+                      {t.landing.lastName}
+                    </label>
                     <input
                       type="text"
                       placeholder="Doe"
@@ -570,7 +547,9 @@ export default function Index() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Email</label>
+                  <label className="text-sm font-medium">
+                    {t.landing.email}
+                  </label>
                   <input
                     type="email"
                     placeholder="john@example.com"
@@ -579,7 +558,9 @@ export default function Index() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Subject</label>
+                  <label className="text-sm font-medium">
+                    {t.landing.subject}
+                  </label>
                   <select className="w-full px-3 py-2 border rounded-md bg-background">
                     <option>General Inquiry</option>
                     <option>Technical Support</option>
@@ -590,16 +571,18 @@ export default function Index() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Message</label>
+                  <label className="text-sm font-medium">
+                    {t.landing.message}
+                  </label>
                   <textarea
-                    placeholder="Tell us how we can help you..."
+                    placeholder={t.landing.messagePlaceholder}
                     rows={5}
                     className="w-full px-3 py-2 border rounded-md bg-background resize-none"
                   />
                 </div>
 
                 <Button className="w-full" size="lg">
-                  Send Message
+                  {t.landing.sendMessageBtn}
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </CardContent>
@@ -609,7 +592,7 @@ export default function Index() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-foreground mb-6">
-                  Contact Information
+                  {t.landing.contactInfo}
                 </h3>
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
@@ -617,12 +600,14 @@ export default function Index() {
                       <Mail className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-foreground">Email</h4>
+                      <h4 className="font-semibold text-foreground">
+                        {t.landing.email}
+                      </h4>
                       <p className="text-muted-foreground">
                         support@yousefrecharge.com
                       </p>
                       <p className="text-sm text-muted-foreground">
-                        We typically respond within 24 hours
+                        {t.landing.emailDesc}
                       </p>
                     </div>
                   </div>
@@ -635,7 +620,7 @@ export default function Index() {
                       <h4 className="font-semibold text-foreground">Phone</h4>
                       <p className="text-muted-foreground">+965 1234 5678</p>
                       <p className="text-sm text-muted-foreground">
-                        Mon-Fri 9:00 AM - 6:00 PM (Kuwait Time)
+                        {t.landing.phoneDesc}
                       </p>
                     </div>
                   </div>
@@ -650,7 +635,7 @@ export default function Index() {
                         Kuwait City, Kuwait
                       </p>
                       <p className="text-sm text-muted-foreground">
-                        Headquarters & Support Center
+                        {t.landing.officeDesc}
                       </p>
                     </div>
                   </div>
@@ -660,7 +645,7 @@ export default function Index() {
               {/* FAQ Section */}
               <div>
                 <h3 className="text-xl font-bold text-foreground mb-4">
-                  Frequently Asked Questions
+                  {t.landing.faq}
                 </h3>
                 <div className="space-y-4">
                   <details className="group border rounded-lg">
@@ -707,7 +692,7 @@ export default function Index() {
               {/* Social Links */}
               <div>
                 <h3 className="text-xl font-bold text-foreground mb-4">
-                  Follow Us
+                  {t.landing.followUs}
                 </h3>
                 <div className="flex space-x-4">
                   <a
@@ -755,73 +740,78 @@ export default function Index() {
                 </span>
               </div>
               <p className="text-muted-foreground">
-                Transform your fitness journey with personalized plans and
-                expert guidance.
+                {t.landing.footerDescription}
               </p>
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-semibold text-foreground">Product</h4>
+              <h4 className="font-semibold text-foreground">
+                {t.landing.product}
+              </h4>
               <div className="space-y-2">
                 <Link
                   to="/#features"
                   className="block text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Features
+                  {t.nav.features}
                 </Link>
                 <Link
                   to="/plans"
                   className="block text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Plans
+                  {t.landing.plans}
                 </Link>
                 <Link
                   to="/subscription"
                   className="block text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Pricing
+                  {t.landing.pricing}
                 </Link>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-semibold text-foreground">Company</h4>
+              <h4 className="font-semibold text-foreground">
+                {t.landing.company}
+              </h4>
               <div className="space-y-2">
                 <a
                   href="#about"
                   className="block text-muted-foreground hover:text-primary transition-colors"
                 >
-                  About
+                  {t.nav.about}
                 </a>
                 <a
                   href="#contact"
                   className="block text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Contact
+                  {t.nav.contact}
                 </a>
                 <a
                   href="#careers"
                   className="block text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Careers
+                  {t.landing.careers}
                 </a>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-semibold text-foreground">Legal</h4>
+              <h4 className="font-semibold text-foreground">
+                {t.landing.legal}
+              </h4>
               <div className="space-y-2">
                 <a
                   href="#privacy"
                   className="block text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Privacy Policy
+                  {t.landing.privacyPolicy}
                 </a>
                 <a
                   href="#terms"
                   className="block text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Terms of Service
+                  {t.landing.termsOfService}
                 </a>
                 <a
                   href="#support"
@@ -834,9 +824,7 @@ export default function Index() {
           </div>
 
           <div className="border-t border-border mt-12 pt-8 text-center">
-            <p className="text-muted-foreground">
-              © 2024 Yousef Recharge. All rights reserved.
-            </p>
+            <p className="text-muted-foreground">{t.landing.copyright}</p>
           </div>
         </div>
       </footer>
