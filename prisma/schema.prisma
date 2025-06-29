@@ -1,0 +1,197 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  fullName  String
+  password  String?  // Optional for OTP-only users
+  phone     String?
+  age       Int
+  weight    Float
+  gender    Gender
+  goal      FitnessGoal
+  authMethod AuthMethod
+  isVerified Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  sessions    Session[]
+  workouts    Workout[]
+  meals       Meal[]
+  progress    Progress[]
+  subscription Subscription?
+  
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("sessions")
+}
+
+model OTPVerification {
+  id        String   @id @default(cuid())
+  phone     String
+  otp       String
+  verified  Boolean  @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  @@map("otp_verifications")
+}
+
+model Contact {
+  id        String      @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  subject   String
+  message   String
+  status    ContactStatus @default(NEW)
+  createdAt DateTime   @default(now())
+  
+  @@map("contacts")
+}
+
+model Workout {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  exercises   Json     // Store exercises as JSON
+  duration    Int      // in minutes
+  calories    Int?
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("workouts")
+}
+
+model Meal {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  foods     Json     // Store foods as JSON
+  calories  Int
+  protein   Float?
+  carbs     Float?
+  fat       Float?
+  mealType  MealType
+  consumedAt DateTime
+  createdAt DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("meals")
+}
+
+model Progress {
+  id        String   @id @default(cuid())
+  userId    String
+  weight    Float?
+  bodyFat   Float?
+  muscle    Float?
+  notes     String?
+  photos    Json?    // Store photo URLs as JSON
+  recordedAt DateTime
+  createdAt DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("progress")
+}
+
+model Subscription {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  plan      SubscriptionPlan
+  status    SubscriptionStatus
+  startDate DateTime
+  endDate   DateTime
+  amount    Float
+  currency  String   @default("KWD")
+  paymentId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("subscriptions")
+}
+
+model PushSubscription {
+  id       String @id @default(cuid())
+  userId   String
+  endpoint String
+  keys     Json   // Store p256dh and auth keys
+  createdAt DateTime @default(now())
+  
+  @@unique([userId, endpoint])
+  @@map("push_subscriptions")
+}
+
+// Enums
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum FitnessGoal {
+  LOSE_WEIGHT
+  GAIN_MUSCLE
+  MAINTAIN
+}
+
+enum AuthMethod {
+  EMAIL
+  OTP
+}
+
+enum ContactStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+}
+
+enum SubscriptionPlan {
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  EXPIRED
+  PENDING
+}
