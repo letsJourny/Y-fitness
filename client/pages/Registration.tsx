@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { validateRegistrationForm, ValidationError } from "@/utils/validation";
+import { api, ApiError } from "@/utils/api";
 
 export default function Registration() {
   const [language, setLanguage] = useState("en");
@@ -80,45 +81,51 @@ export default function Registration() {
         return;
       }
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Call real API
+      const response = await api.register({
+        ...formData,
+        authMethod,
+      });
 
-      // Simulate random success/failure for demo
-      const isSuccess = Math.random() > 0.3;
+      showToast({
+        type: "success",
+        title: "Registration Successful!",
+        message:
+          response.message ||
+          "Welcome to Yousef Recharge! You can now access your dashboard.",
+      });
 
-      if (isSuccess) {
-        showToast({
-          type: "success",
-          title: "Registration Successful!",
-          message:
-            "Welcome to Yousef Recharge! You can now access your dashboard.",
-        });
+      // Reset form
+      setFormData({
+        fullName: "",
+        email: "",
+        age: "",
+        weight: "",
+        gender: "",
+        goal: "",
+        phone: "",
+        otp: "",
+      });
 
-        // Reset form
-        setFormData({
-          fullName: "",
-          email: "",
-          age: "",
-          weight: "",
-          gender: "",
-          goal: "",
-          phone: "",
-          otp: "",
-        });
-
-        // Redirect to dashboard after success
-        setTimeout(() => {
-          window.location.href = "/dashboard";
-        }, 1500);
-      } else {
-        throw new Error("Registration failed. Please try again.");
-      }
+      // Redirect to dashboard after success
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 1500);
     } catch (error) {
+      if (error instanceof ApiError && error.details) {
+        // Server validation errors
+        const serverErrors = error.details.map((detail) => ({
+          field: detail.field,
+          message: detail.message,
+        }));
+        setErrors(serverErrors);
+      }
+
       showToast({
         type: "error",
         title: "Registration Failed",
         message:
-          error instanceof Error
+          error instanceof ApiError
             ? error.message
             : "An unexpected error occurred.",
       });
@@ -136,13 +143,15 @@ export default function Registration() {
         return;
       }
 
-      // Simulate OTP sending
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Call real API to send OTP
+      const response = await api.sendOTP(formData.phone);
 
       showToast({
         type: "success",
         title: "OTP Sent!",
-        message: "Please check your phone for the verification code.",
+        message:
+          response.message ||
+          "Please check your phone for the verification code.",
       });
     } catch (error) {
       showToast({

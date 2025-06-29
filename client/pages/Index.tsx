@@ -33,6 +33,7 @@ import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { FormError } from "@/components/ui/form-error";
 import { showToast } from "@/components/ui/toast-notification";
 import { validateContactForm, ValidationError } from "@/utils/validation";
+import { api, ApiError } from "@/utils/api";
 import { useState } from "react";
 
 export default function Index() {
@@ -80,37 +81,40 @@ export default function Index() {
         return;
       }
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Call real API
+      const response = await api.contact(contactFormData);
 
-      // Simulate random success/failure for demo
-      const isSuccess = Math.random() > 0.2;
+      showToast({
+        type: "success",
+        title: "Message Sent!",
+        message:
+          response.message ||
+          "Thank you for your message. We'll get back to you within 24 hours.",
+      });
 
-      if (isSuccess) {
-        showToast({
-          type: "success",
-          title: "Message Sent!",
-          message:
-            "Thank you for your message. We'll get back to you within 24 hours.",
-        });
-
-        // Reset form
-        setContactFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          subject: "General Inquiry",
-          message: "",
-        });
-      } else {
-        throw new Error("Failed to send message. Please try again.");
-      }
+      // Reset form
+      setContactFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        subject: "General Inquiry",
+        message: "",
+      });
     } catch (error) {
+      if (error instanceof ApiError && error.details) {
+        // Server validation errors
+        const serverErrors = error.details.map((detail) => ({
+          field: detail.field,
+          message: detail.message,
+        }));
+        setContactErrors(serverErrors);
+      }
+
       showToast({
         type: "error",
         title: "Message Failed",
         message:
-          error instanceof Error
+          error instanceof ApiError
             ? error.message
             : "An unexpected error occurred.",
       });
