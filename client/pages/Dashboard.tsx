@@ -32,7 +32,7 @@ import {
   Bell,
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
-import SEO, { seoConfigs } from "@/components/SEO";
+// import SEO, { seoConfigs } from "@/components/SEO";
 
 export default function Dashboard() {
   const [currentTime, setCurrentTime] = useState(new Date());

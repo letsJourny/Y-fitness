@@ -34,7 +34,7 @@ import {
 import { Link } from "react-router-dom";
 import { validateRegistrationForm, ValidationError } from "@/utils/validation";
 import { api, ApiError } from "@/utils/api";
-import SEO, { seoConfigs } from "@/components/SEO";
+// import SEO, { seoConfigs } from "@/components/SEO";
 
 export default function Registration() {
   const [language, setLanguage] = useState("en");
