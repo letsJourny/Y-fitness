@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,7 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Clock, Flame, Users, Play, Calendar, Info } from "lucide-react";
 import { WorkoutTemplate, getExerciseById } from "@/utils/workoutData";
-import { useState } from "react";
 
 interface WorkoutCardProps {
   workout: WorkoutTemplate;
