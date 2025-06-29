@@ -431,6 +431,266 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section id="pricing" className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+              Choose Your Plan
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Start your fitness transformation with our flexible pricing plans
+              designed for every lifestyle and budget.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            {/* Monthly Plan */}
+            <Card className="relative">
+              <CardContent className="p-8">
+                <div className="text-center space-y-4">
+                  <h3 className="text-2xl font-bold text-foreground">
+                    Monthly
+                  </h3>
+                  <div className="space-y-2">
+                    <div className="text-4xl font-bold text-foreground">
+                      15 KWD
+                      <span className="text-lg font-normal text-muted-foreground">
+                        /month
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Perfect for getting started
+                    </p>
+                  </div>
+
+                  <ul className="space-y-3 text-left">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">All workout plans</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Meal tracking & logging</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Progress analytics</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Email support</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Mobile app access</span>
+                    </li>
+                  </ul>
+
+                  <Link to="/registration" className="block">
+                    <Button variant="outline" className="w-full" size="lg">
+                      Get Started
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Quarterly Plan - Popular */}
+            <Card className="relative border-primary ring-2 ring-primary/20">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <div className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                  <Star className="w-3 h-3" />
+                  Most Popular
+                </div>
+              </div>
+
+              <CardContent className="p-8">
+                <div className="text-center space-y-4">
+                  <h3 className="text-2xl font-bold text-foreground">
+                    Quarterly
+                  </h3>
+                  <div className="space-y-2">
+                    <div className="text-4xl font-bold text-foreground">
+                      12 KWD
+                      <span className="text-lg font-normal text-muted-foreground">
+                        /month
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-sm line-through text-muted-foreground">
+                        15 KWD
+                      </span>
+                      <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                        20% off
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Best value for commitment
+                    </p>
+                  </div>
+
+                  <ul className="space-y-3 text-left">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Everything in Monthly</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Priority support</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Custom meal plans</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">1-on-1 consultation</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Progress photos review</span>
+                    </li>
+                  </ul>
+
+                  <Link to="/registration" className="block">
+                    <Button className="w-full" size="lg">
+                      Start Free Trial
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Yearly Plan */}
+            <Card className="relative">
+              <div className="absolute -top-3 right-4">
+                <div className="bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-medium">
+                  Best Value
+                </div>
+              </div>
+
+              <CardContent className="p-8">
+                <div className="text-center space-y-4">
+                  <h3 className="text-2xl font-bold text-foreground">Yearly</h3>
+                  <div className="space-y-2">
+                    <div className="text-4xl font-bold text-foreground">
+                      8 KWD
+                      <span className="text-lg font-normal text-muted-foreground">
+                        /month
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-sm line-through text-muted-foreground">
+                        15 KWD
+                      </span>
+                      <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                        47% off
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Maximum savings & features
+                    </p>
+                  </div>
+
+                  <ul className="space-y-3 text-left">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Everything in Quarterly</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Personal trainer chat</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Advanced analytics</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Nutrition coaching</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">VIP community access</span>
+                    </li>
+                  </ul>
+
+                  <Link to="/registration" className="block">
+                    <Button variant="outline" className="w-full" size="lg">
+                      Get Started
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Pricing FAQ */}
+          <div className="text-center space-y-8">
+            <h3 className="text-2xl font-bold text-foreground">
+              Frequently Asked Questions
+            </h3>
+
+            <div className="grid md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
+              <div className="space-y-3">
+                <h4 className="font-semibold text-foreground">
+                  Can I cancel anytime?
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Yes! You can cancel your subscription at any time from your
+                  account settings. No hidden fees or cancellation charges.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="font-semibold text-foreground">
+                  Is there a free trial?
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  All plans come with a 7-day free trial. No credit card
+                  required to start your trial period.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="font-semibold text-foreground">
+                  What payment methods do you accept?
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  We accept all major credit cards, PayPal, and local payment
+                  methods including K-Net for Kuwait customers.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="font-semibold text-foreground">
+                  Can I change my plan later?
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Absolutely! You can upgrade or downgrade your plan at any
+                  time. Changes will be prorated automatically.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-muted/50 rounded-2xl p-8">
+              <h4 className="text-xl font-bold text-foreground mb-4">
+                Still have questions?
+              </h4>
+              <p className="text-muted-foreground mb-6">
+                Our support team is here to help you choose the perfect plan for
+                your fitness goals.
+              </p>
+              <Button variant="outline">
+                <Mail className="w-4 h-4 mr-2" />
+                Contact Support
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-r from-primary to-primary/80">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
