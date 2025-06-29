@@ -19,7 +19,7 @@ const queryClient = new QueryClient();
 const App = () => {
   // Initialize PWA features after React has mounted
   useEffect(() => {
-    initializePWA();
+    // Temporarily disabled: initializePWA();
   }, []);
 
   return (
