@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ToastContainer } from "@/components/ui/toast-notification";
+import { initializePWA } from "@/utils/pwa";
 import Index from "./pages/Index";
 import Registration from "./pages/Registration";
 import Dashboard from "./pages/Dashboard";
@@ -48,3 +49,6 @@ const App = () => (
 );
 
 createRoot(document.getElementById("root")!).render(<App />);
+
+// Initialize PWA features
+initializePWA();
