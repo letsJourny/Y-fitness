@@ -29,10 +29,95 @@ import {
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getTranslation } from "@/utils/translations";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { FormError } from "@/components/ui/form-error";
+import { showToast } from "@/components/ui/toast-notification";
+import { validateContactForm, ValidationError } from "@/utils/validation";
+import { useState } from "react";
 
 export default function Index() {
   const { language } = useLanguage();
   const t = getTranslation(language);
+
+  // Contact form state
+  const [contactFormData, setContactFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "General Inquiry",
+    message: "",
+  });
+  const [contactLoading, setContactLoading] = useState(false);
+  const [contactErrors, setContactErrors] = useState<ValidationError[]>([]);
+
+  const handleContactInputChange = (field: string, value: string) => {
+    setContactFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear field-specific errors when user starts typing
+    if (contactErrors.length > 0) {
+      setContactErrors((prev) => prev.filter((error) => error.field !== field));
+    }
+  };
+
+  const getContactFieldError = (fieldName: string) => {
+    return contactErrors.find((error) => error.field === fieldName)?.message;
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactLoading(true);
+    setContactErrors([]);
+
+    try {
+      // Validate form
+      const validation = validateContactForm(contactFormData);
+      if (!validation.isValid) {
+        setContactErrors(validation.errors);
+        showToast({
+          type: "error",
+          title: "Validation Error",
+          message: "Please fix the errors below and try again.",
+        });
+        return;
+      }
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Simulate random success/failure for demo
+      const isSuccess = Math.random() > 0.2;
+
+      if (isSuccess) {
+        showToast({
+          type: "success",
+          title: "Message Sent!",
+          message:
+            "Thank you for your message. We'll get back to you within 24 hours.",
+        });
+
+        // Reset form
+        setContactFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          subject: "General Inquiry",
+          message: "",
+        });
+      } else {
+        throw new Error("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      showToast({
+        type: "error",
+        title: "Message Failed",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred.",
+      });
+    } finally {
+      setContactLoading(false);
+    }
+  };
   const features = [
     {
       icon: Dumbbell,
@@ -522,69 +607,144 @@ export default function Index() {
                 <CardTitle>{t.landing.sendMessage}</CardTitle>
                 <CardDescription>{t.landing.contactFormDesc}</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+              <CardContent>
+                <form onSubmit={handleContactSubmit} className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">
+                        {t.landing.firstName}
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="John"
+                        value={contactFormData.firstName}
+                        onChange={(e) =>
+                          handleContactInputChange("firstName", e.target.value)
+                        }
+                        className={`w-full px-3 py-2 border rounded-md bg-background transition-colors ${
+                          getContactFieldError("firstName")
+                            ? "border-destructive focus:border-destructive"
+                            : "border-input focus:border-primary"
+                        }`}
+                        disabled={contactLoading}
+                      />
+                      <FormError message={getContactFieldError("firstName")} />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">
+                        {t.landing.lastName}
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Doe"
+                        value={contactFormData.lastName}
+                        onChange={(e) =>
+                          handleContactInputChange("lastName", e.target.value)
+                        }
+                        className={`w-full px-3 py-2 border rounded-md bg-background transition-colors ${
+                          getContactFieldError("lastName")
+                            ? "border-destructive focus:border-destructive"
+                            : "border-input focus:border-primary"
+                        }`}
+                        disabled={contactLoading}
+                      />
+                      <FormError message={getContactFieldError("lastName")} />
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
                     <label className="text-sm font-medium">
-                      {t.landing.firstName}
+                      {t.landing.email}
                     </label>
                     <input
-                      type="text"
-                      placeholder="John"
-                      className="w-full px-3 py-2 border rounded-md bg-background"
+                      type="email"
+                      placeholder="john@example.com"
+                      value={contactFormData.email}
+                      onChange={(e) =>
+                        handleContactInputChange("email", e.target.value)
+                      }
+                      className={`w-full px-3 py-2 border rounded-md bg-background transition-colors ${
+                        getContactFieldError("email")
+                          ? "border-destructive focus:border-destructive"
+                          : "border-input focus:border-primary"
+                      }`}
+                      disabled={contactLoading}
                     />
+                    <FormError message={getContactFieldError("email")} />
                   </div>
+
                   <div className="space-y-2">
                     <label className="text-sm font-medium">
-                      {t.landing.lastName}
+                      {t.landing.subject}
                     </label>
-                    <input
-                      type="text"
-                      placeholder="Doe"
-                      className="w-full px-3 py-2 border rounded-md bg-background"
-                    />
+                    <select
+                      value={contactFormData.subject}
+                      onChange={(e) =>
+                        handleContactInputChange("subject", e.target.value)
+                      }
+                      className={`w-full px-3 py-2 border rounded-md bg-background transition-colors ${
+                        getContactFieldError("subject")
+                          ? "border-destructive focus:border-destructive"
+                          : "border-input focus:border-primary"
+                      }`}
+                      disabled={contactLoading}
+                    >
+                      <option value="General Inquiry">General Inquiry</option>
+                      <option value="Technical Support">
+                        Technical Support
+                      </option>
+                      <option value="Billing Question">Billing Question</option>
+                      <option value="Partnership">Partnership</option>
+                      <option value="Feedback">Feedback</option>
+                    </select>
+                    <FormError message={getContactFieldError("subject")} />
                   </div>
-                </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    {t.landing.email}
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    className="w-full px-3 py-2 border rounded-md bg-background"
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">
+                      {t.landing.message}
+                    </label>
+                    <textarea
+                      placeholder={t.landing.messagePlaceholder}
+                      rows={5}
+                      value={contactFormData.message}
+                      onChange={(e) =>
+                        handleContactInputChange("message", e.target.value)
+                      }
+                      className={`w-full px-3 py-2 border rounded-md bg-background resize-none transition-colors ${
+                        getContactFieldError("message")
+                          ? "border-destructive focus:border-destructive"
+                          : "border-input focus:border-primary"
+                      }`}
+                      disabled={contactLoading}
+                    />
+                    <div className="flex justify-between items-center">
+                      <FormError message={getContactFieldError("message")} />
+                      <span className="text-xs text-muted-foreground">
+                        {contactFormData.message.length}/1000
+                      </span>
+                    </div>
+                  </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    {t.landing.subject}
-                  </label>
-                  <select className="w-full px-3 py-2 border rounded-md bg-background">
-                    <option>General Inquiry</option>
-                    <option>Technical Support</option>
-                    <option>Billing Question</option>
-                    <option>Partnership</option>
-                    <option>Feedback</option>
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    {t.landing.message}
-                  </label>
-                  <textarea
-                    placeholder={t.landing.messagePlaceholder}
-                    rows={5}
-                    className="w-full px-3 py-2 border rounded-md bg-background resize-none"
-                  />
-                </div>
-
-                <Button className="w-full" size="lg">
-                  {t.landing.sendMessageBtn}
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    size="lg"
+                    disabled={contactLoading}
+                  >
+                    {contactLoading ? (
+                      <>
+                        <LoadingSpinner size="sm" className="mr-2" />
+                        Sending Message...
+                      </>
+                    ) : (
+                      <>
+                        {t.landing.sendMessageBtn}
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </>
+                    )}
+                  </Button>
+                </form>
               </CardContent>
             </Card>
 
