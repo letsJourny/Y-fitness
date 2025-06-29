@@ -10,10 +10,12 @@ import {
   Shield,
   Moon,
   Sun,
+  Globe,
 } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface NavigationProps {
   isAuthenticated?: boolean;
@@ -27,6 +29,7 @@ export default function Navigation({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage } = useLanguage();
 
   const handleAnchorClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
@@ -157,8 +160,18 @@ export default function Navigation({
             })}
           </div>
 
-          {/* Theme Toggle & Auth Buttons */}
+          {/* Language, Theme Toggle & Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleLanguage}
+              className="px-3 h-9"
+            >
+              <Globe className="w-4 h-4 mr-1" />
+              {language === "en" ? "EN" : "عر"}
+            </Button>
+
             <Button
               variant="ghost"
               size="sm"
@@ -271,6 +284,18 @@ export default function Navigation({
               })}
 
               <div className="flex flex-col space-y-2 pt-4 border-t border-border">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleLanguage}
+                  className="w-full justify-start"
+                >
+                  <Globe className="w-4 h-4 mr-2" />
+                  {language === "en"
+                    ? "Switch to Arabic"
+                    : "التبديل إلى الإنجليزية"}
+                </Button>
+
                 <Button
                   variant="ghost"
                   size="sm"
