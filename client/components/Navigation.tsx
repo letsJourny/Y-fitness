@@ -14,6 +14,7 @@ import {
   Globe,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useTheme, useLanguage } from "@/contexts/MinimalContexts";
 
 interface NavigationProps {
   isAuthenticated?: boolean;
@@ -26,10 +27,8 @@ export default function Navigation({
 }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-
-  // Temporary static values while contexts are disabled
-  const theme = "light";
-  const language = "en";
+  const { theme } = useTheme();
+  const { language } = useLanguage();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
