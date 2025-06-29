@@ -14,17 +14,30 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
-    // Check localStorage first, then default to English
-    const saved = localStorage.getItem("language") as Language;
-    return saved || "en";
+    // Check localStorage first, then default to English (with safety check)
+    try {
+      const saved =
+        typeof window !== "undefined"
+          ? (localStorage.getItem("language") as Language)
+          : null;
+      return saved || "en";
+    } catch {
+      return "en";
+    }
   });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem("language", lang);
 
-    // Set language attribute but keep LTR layout
-    document.documentElement.lang = lang;
+    // Safely set localStorage and document attributes
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("language", lang);
+        document.documentElement.lang = lang;
+      }
+    } catch (error) {
+      console.warn("Failed to save language preference:", error);
+    }
   };
 
   const toggleLanguage = () => {
@@ -34,7 +47,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   // Set initial language on mount
   useEffect(() => {
-    document.documentElement.lang = language;
+    try {
+      if (typeof window !== "undefined" && document.documentElement) {
+        document.documentElement.lang = language;
+      }
+    } catch (error) {
+      console.warn("Failed to set document language:", error);
+    }
   }, [language]);
 
   return (
