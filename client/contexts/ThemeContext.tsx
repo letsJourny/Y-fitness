@@ -11,25 +11,37 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    // Check localStorage first, then system preference
-    const saved = localStorage.getItem("theme") as Theme;
-    if (saved) return saved;
+    // Check localStorage first, then system preference (with safety checks)
+    try {
+      if (typeof window === "undefined") return "light";
 
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+      const saved = localStorage.getItem("theme") as Theme;
+      if (saved) return saved;
+
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    } catch {
+      return "light";
+    }
   });
 
   useEffect(() => {
-    const root = document.documentElement;
+    try {
+      if (typeof window === "undefined") return;
 
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
+      const root = document.documentElement;
+
+      if (theme === "dark") {
+        root.classList.add("dark");
+      } else {
+        root.classList.remove("dark");
+      }
+
+      localStorage.setItem("theme", theme);
+    } catch (error) {
+      console.warn("Failed to apply theme:", error);
     }
-
-    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
