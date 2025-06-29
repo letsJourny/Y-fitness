@@ -19,6 +19,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Navigation from "@/components/Navigation";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { FormError } from "@/components/ui/form-error";
+import { showToast } from "@/components/ui/toast-notification";
 import {
   ArrowRight,
   Mail,
@@ -29,10 +32,13 @@ import {
   User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { validateRegistrationForm, ValidationError } from "@/utils/validation";
 
 export default function Registration() {
   const [language, setLanguage] = useState("en");
   const [authMethod, setAuthMethod] = useState("email");
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<ValidationError[]>([]);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -41,16 +47,112 @@ export default function Registration() {
     gender: "",
     goal: "",
     phone: "",
+    otp: "",
   });
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear field-specific errors when user starts typing
+    if (errors.length > 0) {
+      setErrors((prev) => prev.filter((error) => error.field !== field));
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const getFieldError = (fieldName: string) => {
+    return errors.find((error) => error.field === fieldName)?.message;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Registration form submitted:", formData);
-    // Handle registration logic here
+    setIsLoading(true);
+    setErrors([]);
+
+    try {
+      // Validate form
+      const validation = validateRegistrationForm(formData);
+      if (!validation.isValid) {
+        setErrors(validation.errors);
+        showToast({
+          type: "error",
+          title: "Validation Error",
+          message: "Please fix the errors below and try again.",
+        });
+        return;
+      }
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Simulate random success/failure for demo
+      const isSuccess = Math.random() > 0.3;
+
+      if (isSuccess) {
+        showToast({
+          type: "success",
+          title: "Registration Successful!",
+          message:
+            "Welcome to Yousef Recharge! You can now access your dashboard.",
+        });
+
+        // Reset form
+        setFormData({
+          fullName: "",
+          email: "",
+          age: "",
+          weight: "",
+          gender: "",
+          goal: "",
+          phone: "",
+          otp: "",
+        });
+
+        // Redirect to dashboard after success
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 1500);
+      } else {
+        throw new Error("Registration failed. Please try again.");
+      }
+    } catch (error) {
+      showToast({
+        type: "error",
+        title: "Registration Failed",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSendOTP = async () => {
+    setIsLoading(true);
+
+    try {
+      if (!formData.phone) {
+        setErrors([{ field: "phone", message: "Phone number is required" }]);
+        return;
+      }
+
+      // Simulate OTP sending
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      showToast({
+        type: "success",
+        title: "OTP Sent!",
+        message: "Please check your phone for the verification code.",
+      });
+    } catch (error) {
+      showToast({
+        type: "error",
+        title: "Failed to Send OTP",
+        message: "Please check your phone number and try again.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const text = {
@@ -186,8 +288,12 @@ export default function Registration() {
                         onChange={(e) =>
                           handleInputChange("fullName", e.target.value)
                         }
+                        className={
+                          getFieldError("fullName") ? "border-destructive" : ""
+                        }
                         required
                       />
+                      <FormError message={getFieldError("fullName")} />
                     </div>
 
                     {/* Email */}
@@ -204,8 +310,12 @@ export default function Registration() {
                         onChange={(e) =>
                           handleInputChange("email", e.target.value)
                         }
+                        className={
+                          getFieldError("email") ? "border-destructive" : ""
+                        }
                         required
                       />
+                      <FormError message={getFieldError("email")} />
                     </div>
 
                     {/* Age and Weight */}
@@ -218,12 +328,18 @@ export default function Registration() {
                           id="age"
                           type="number"
                           placeholder="25"
+                          min="13"
+                          max="120"
                           value={formData.age}
                           onChange={(e) =>
                             handleInputChange("age", e.target.value)
                           }
+                          className={
+                            getFieldError("age") ? "border-destructive" : ""
+                          }
                           required
                         />
+                        <FormError message={getFieldError("age")} />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="weight" className="text-sm font-medium">
@@ -234,12 +350,19 @@ export default function Registration() {
                           id="weight"
                           type="number"
                           placeholder="70"
+                          min="20"
+                          max="500"
+                          step="0.1"
                           value={formData.weight}
                           onChange={(e) =>
                             handleInputChange("weight", e.target.value)
                           }
+                          className={
+                            getFieldError("weight") ? "border-destructive" : ""
+                          }
                           required
                         />
+                        <FormError message={getFieldError("weight")} />
                       </div>
                     </div>
 
@@ -274,6 +397,7 @@ export default function Registration() {
                           </Label>
                         </div>
                       </RadioGroup>
+                      <FormError message={getFieldError("gender")} />
                     </div>
 
                     {/* Fitness Goal */}
@@ -288,7 +412,11 @@ export default function Registration() {
                           handleInputChange("goal", value)
                         }
                       >
-                        <SelectTrigger>
+                        <SelectTrigger
+                          className={
+                            getFieldError("goal") ? "border-destructive" : ""
+                          }
+                        >
                           <SelectValue placeholder={currentText.goal} />
                         </SelectTrigger>
                         <SelectContent>
@@ -303,11 +431,26 @@ export default function Registration() {
                           </SelectItem>
                         </SelectContent>
                       </Select>
+                      <FormError message={getFieldError("goal")} />
                     </div>
 
-                    <Button type="submit" className="w-full" size="lg">
-                      {currentText.register}
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      size="lg"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <>
+                          <LoadingSpinner size="sm" className="mr-2" />
+                          Creating Account...
+                        </>
+                      ) : (
+                        <>
+                          {currentText.register}
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </>
+                      )}
                     </Button>
                   </form>
                 </TabsContent>
@@ -327,15 +470,32 @@ export default function Registration() {
                         onChange={(e) =>
                           handleInputChange("phone", e.target.value)
                         }
+                        className={
+                          getFieldError("phone") ? "border-destructive" : ""
+                        }
                         required
                       />
+                      <FormError message={getFieldError("phone")} />
                     </div>
 
-                    <Button type="button" className="w-full" size="lg">
-                      {currentText.sendOtp}
+                    <Button
+                      type="button"
+                      className="w-full"
+                      size="lg"
+                      onClick={handleSendOTP}
+                      disabled={isLoading || !formData.phone}
+                    >
+                      {isLoading ? (
+                        <>
+                          <LoadingSpinner size="sm" className="mr-2" />
+                          Sending OTP...
+                        </>
+                      ) : (
+                        currentText.sendOtp
+                      )}
                     </Button>
 
-                    {/* OTP Input (show after sending OTP) */}
+                    {/* OTP Input */}
                     <div className="space-y-2">
                       <Label htmlFor="otp" className="text-sm font-medium">
                         OTP
@@ -345,15 +505,37 @@ export default function Registration() {
                         type="text"
                         placeholder="123456"
                         maxLength={6}
+                        value={formData.otp}
+                        onChange={(e) =>
+                          handleInputChange("otp", e.target.value)
+                        }
+                        className={
+                          getFieldError("otp") ? "border-destructive" : ""
+                        }
                       />
                       <p className="text-xs text-muted-foreground">
                         {currentText.enterOtp}
                       </p>
+                      <FormError message={getFieldError("otp")} />
                     </div>
 
-                    <Button type="submit" className="w-full" size="lg">
-                      {currentText.register}
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      size="lg"
+                      disabled={isLoading || !formData.otp}
+                    >
+                      {isLoading ? (
+                        <>
+                          <LoadingSpinner size="sm" className="mr-2" />
+                          Verifying...
+                        </>
+                      ) : (
+                        <>
+                          {currentText.register}
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </>
+                      )}
                     </Button>
                   </form>
                 </TabsContent>

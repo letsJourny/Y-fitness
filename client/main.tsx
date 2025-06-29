@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ToastContainer } from "@/components/ui/toast-notification";
 import Index from "./pages/Index";
 import Registration from "./pages/Registration";
 import Dashboard from "./pages/Dashboard";
@@ -26,6 +27,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          <ToastContainer />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
