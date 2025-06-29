@@ -32,6 +32,7 @@ import {
   Bell,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import SEO, { seoConfigs } from "@/components/SEO";
 
 export default function Dashboard() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -146,6 +147,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...seoConfigs.dashboard} />
       <Navigation isAuthenticated={true} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

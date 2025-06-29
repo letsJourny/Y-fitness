@@ -34,6 +34,7 @@ import {
 import { Link } from "react-router-dom";
 import { validateRegistrationForm, ValidationError } from "@/utils/validation";
 import { api, ApiError } from "@/utils/api";
+import SEO, { seoConfigs } from "@/components/SEO";
 
 export default function Registration() {
   const [language, setLanguage] = useState("en");
@@ -202,7 +203,7 @@ export default function Registration() {
       male: "ذكر",
       female: "أنثى",
       other: "آخر",
-      goal: "هدف اللياقة البدنية",
+      goal: "��دف اللياقة البدنية",
       loseWeight: "فقدان الوزن",
       gainMuscle: "بناء العضلات",
       maintain: "الحفاظ على الوزن",
@@ -221,6 +222,7 @@ export default function Registration() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...seoConfigs.registration} />
       <Navigation />
 
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/10 flex items-center justify-center p-4">

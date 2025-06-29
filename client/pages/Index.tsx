@@ -35,6 +35,7 @@ import { showToast } from "@/components/ui/toast-notification";
 import { validateContactForm, ValidationError } from "@/utils/validation";
 import { api, ApiError } from "@/utils/api";
 import { useState } from "react";
+import SEO, { seoConfigs } from "@/components/SEO";
 
 export default function Index() {
   const { language } = useLanguage();
@@ -199,6 +200,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...seoConfigs.home} />
       <Navigation />
 
       {/* Hero Section */}
