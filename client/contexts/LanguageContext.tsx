@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 type Language = "en" | "ar";
 
@@ -33,7 +33,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Set initial language on mount
-  React.useEffect(() => {
+  useEffect(() => {
     document.documentElement.lang = language;
   }, [language]);
 
