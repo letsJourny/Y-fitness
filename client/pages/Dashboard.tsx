@@ -31,7 +31,7 @@ import {
   Settings,
   Bell,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import SEO, { seoConfigs } from "@/components/SEO";
 
 export default function Dashboard() {
