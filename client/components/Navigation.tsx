@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Menu,
@@ -13,8 +13,7 @@ import {
   Sun,
   Globe,
 } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import { useTheme, useLanguage } from "@/contexts/MinimalContexts";
+import { Link } from "react-router-dom";
 
 interface NavigationProps {
   isAuthenticated?: boolean;
@@ -25,19 +24,17 @@ export default function Navigation({
   isAuthenticated = false,
   isAdmin = false,
 }: NavigationProps) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const { theme } = useTheme();
-  const { language } = useLanguage();
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  // Static navigation without useState to avoid React hook issues
+  const handleHomeClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleHomeClick = () => {
-    if (location.pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+  const handleToggleTheme = () => {
+    console.log("Theme toggle temporarily disabled");
+  };
+
+  const handleToggleLanguage = () => {
+    console.log("Language toggle temporarily disabled");
   };
 
   const navItems = isAuthenticated
@@ -83,13 +80,23 @@ export default function Navigation({
               </Link>
             ))}
 
-            {/* Theme Toggle - Disabled */}
-            <Button variant="ghost" size="icon" disabled>
+            {/* Theme Toggle - Static */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleToggleTheme}
+              title="Theme toggle (temporarily disabled)"
+            >
               <Sun className="h-5 w-5" />
             </Button>
 
-            {/* Language Toggle - Disabled */}
-            <Button variant="ghost" size="icon" disabled>
+            {/* Language Toggle - Static */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleToggleLanguage}
+              title="Language toggle (temporarily disabled)"
+            >
               <Globe className="h-5 w-5" />
             </Button>
 
@@ -105,54 +112,47 @@ export default function Navigation({
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu - Simplified without state */}
           <div className="md:hidden flex items-center">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleMobileMenu}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </Button>
+            <details className="relative">
+              <summary className="list-none cursor-pointer">
+                <Button variant="ghost" size="icon" aria-label="Toggle menu">
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </summary>
+
+              <div className="absolute right-0 top-full mt-2 w-48 bg-background border rounded-md shadow-lg py-2 z-50">
+                {navItems.map((item, index) => (
+                  <Link
+                    key={index}
+                    to={item.href}
+                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                  >
+                    {item.icon && <item.icon className="w-4 h-4 mr-2 inline" />}
+                    {item.label}
+                  </Link>
+                ))}
+
+                {!isAuthenticated && (
+                  <div className="border-t mt-2 pt-2 space-y-1">
+                    <Link
+                      to="/registration"
+                      className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    >
+                      Sign Up
+                    </Link>
+                    <Link
+                      to="/dashboard"
+                      className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </details>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t">
-              {navItems.map((item, index) => (
-                <Link
-                  key={index}
-                  to={item.href}
-                  className="text-muted-foreground hover:text-foreground block px-3 py-2 rounded-md text-base font-medium transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.icon && <item.icon className="w-4 h-4 mr-2 inline" />}
-                  {item.label}
-                </Link>
-              ))}
-
-              {!isAuthenticated && (
-                <div className="flex flex-col space-y-2 pt-4">
-                  <Link to="/registration">
-                    <Button variant="outline" className="w-full">
-                      Sign Up
-                    </Button>
-                  </Link>
-                  <Link to="/dashboard">
-                    <Button className="w-full">Dashboard</Button>
-                  </Link>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );
