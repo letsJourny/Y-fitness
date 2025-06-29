@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -203,7 +203,7 @@ export default function Registration() {
       male: "ذكر",
       female: "أنثى",
       other: "آخر",
-      goal: "��دف اللياقة البدنية",
+      goal: "هدف اللياقة البدنية",
       loseWeight: "فقدان الوزن",
       gainMuscle: "بناء العضلات",
       maintain: "الحفاظ على الوزن",

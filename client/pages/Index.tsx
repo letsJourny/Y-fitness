@@ -34,7 +34,7 @@ import { FormError } from "@/components/ui/form-error";
 import { showToast } from "@/components/ui/toast-notification";
 import { validateContactForm, ValidationError } from "@/utils/validation";
 import { api, ApiError } from "@/utils/api";
-import { useState } from "react";
+import React, { useState } from "react";
 import SEO, { seoConfigs } from "@/components/SEO";
 
 export default function Index() {
