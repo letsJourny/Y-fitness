@@ -1,13 +1,12 @@
 import "./global.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { initializePWA } from "@/utils/pwa";
-import { useEffect } from "react";
 import Index from "./pages/Index";
 import Registration from "./pages/Registration";
 import Dashboard from "./pages/Dashboard";
