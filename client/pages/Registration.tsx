@@ -222,7 +222,7 @@ export default function Registration() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO {...seoConfigs.registration} />
+      {/* <SEO {...seoConfigs.registration} /> */}
       <Navigation />
 
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/10 flex items-center justify-center p-4">
