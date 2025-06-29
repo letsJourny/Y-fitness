@@ -16,12 +16,27 @@ import Subscription from "./pages/Subscription";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-const App = () => {
+function App() {
   // Initialize PWA features after React has mounted
   useEffect(() => {
-    initializePWA();
+    const timer = setTimeout(() => {
+      try {
+        initializePWA();
+      } catch (error) {
+        console.warn("PWA initialization failed:", error);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -37,7 +52,6 @@ const App = () => {
               <Route path="/progress" element={<Progress />} />
               <Route path="/subscription" element={<Subscription />} />
               <Route path="/admin" element={<Admin />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
@@ -45,6 +59,12 @@ const App = () => {
       </LanguageProvider>
     </QueryClientProvider>
   );
-};
+}
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Ensure React is available before mounting
+if (typeof React !== "undefined" && React.version) {
+  const root = createRoot(document.getElementById("root")!);
+  root.render(<App />);
+} else {
+  console.error("React is not properly loaded");
+}
