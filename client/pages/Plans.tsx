@@ -1,3 +1,4 @@
+import React, { useState, useMemo } from "react";
 import Navigation from "@/components/Navigation";
 import {
   Card,
@@ -31,7 +32,6 @@ import {
   TrendingUp,
   BookOpen,
 } from "lucide-react";
-import { useState, useMemo } from "react";
 import {
   workoutTemplates,
   mealTemplates,

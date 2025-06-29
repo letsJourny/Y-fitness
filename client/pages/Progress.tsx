@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Navigation from "@/components/Navigation";
 import {
   Card,
@@ -29,7 +30,6 @@ import {
   Camera,
   Scale,
 } from "lucide-react";
-import { useState } from "react";
 import {
   sampleWorkoutLogs,
   sampleMealLogs,
