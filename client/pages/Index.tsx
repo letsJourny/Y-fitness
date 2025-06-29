@@ -217,7 +217,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO {...seoConfigs.home} />
+      {/* <SEO {...seoConfigs.home} /> */}
       <Navigation />
 
       {/* Hero Section */}
