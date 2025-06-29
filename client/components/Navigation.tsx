@@ -16,6 +16,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getTranslation } from "@/utils/translations";
 
 interface NavigationProps {
   isAuthenticated?: boolean;
@@ -30,6 +31,7 @@ export default function Navigation({
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage } = useLanguage();
+  const t = getTranslation(language);
 
   const handleAnchorClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
@@ -61,21 +63,21 @@ export default function Navigation({
   };
 
   const publicNavItems = [
-    { label: "Home", href: "/", isHome: true },
-    { label: "Features", href: "#features", isAnchor: true },
-    { label: "About", href: "#about", isAnchor: true },
-    { label: "Contact", href: "#contact", isAnchor: true },
+    { label: t.nav.home, href: "/", isHome: true },
+    { label: t.nav.features, href: "#features", isAnchor: true },
+    { label: t.nav.about, href: "#about", isAnchor: true },
+    { label: t.nav.contact, href: "#contact", isAnchor: true },
   ];
 
   const userNavItems = [
-    { label: "Dashboard", href: "/dashboard", icon: BarChart3 },
-    { label: "My Plans", href: "/plans", icon: Calendar },
-    { label: "Progress", href: "/progress", icon: BarChart3 },
-    { label: "Subscription", href: "/subscription", icon: CreditCard },
+    { label: t.nav.dashboard, href: "/dashboard", icon: BarChart3 },
+    { label: t.nav.plans, href: "/plans", icon: Calendar },
+    { label: t.nav.progress, href: "/progress", icon: BarChart3 },
+    { label: t.nav.subscription, href: "/subscription", icon: CreditCard },
   ];
 
   const adminNavItems = [
-    { label: "Admin Panel", href: "/admin", icon: Shield },
+    { label: t.nav.admin, href: "/admin", icon: Shield },
     { label: "Users", href: "/admin/users", icon: User },
     { label: "Plans", href: "/admin/plans", icon: Calendar },
   ];
@@ -189,18 +191,18 @@ export default function Navigation({
               <>
                 <Link to="/registration">
                   <Button variant="ghost" size="sm">
-                    Sign In
+                    {t.nav.signIn}
                   </Button>
                 </Link>
                 <Link to="/registration">
-                  <Button size="sm">Get Started</Button>
+                  <Button size="sm">{t.nav.getStarted}</Button>
                 </Link>
               </>
             ) : (
               <div className="flex items-center space-x-2">
                 <Button variant="ghost" size="sm">
                   <User className="w-4 h-4 mr-2" />
-                  Profile
+                  {t.nav.profile}
                 </Button>
               </div>
             )}
@@ -326,7 +328,7 @@ export default function Navigation({
                         size="sm"
                         className="w-full justify-start"
                       >
-                        Sign In
+                        {t.nav.signIn}
                       </Button>
                     </Link>
                     <Link
@@ -334,7 +336,7 @@ export default function Navigation({
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <Button size="sm" className="w-full">
-                        Get Started
+                        {t.nav.getStarted}
                       </Button>
                     </Link>
                   </>

@@ -23,8 +23,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLanguageState(lang);
     localStorage.setItem("language", lang);
 
-    // Update document direction for RTL support
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    // Set language attribute but keep LTR layout
     document.documentElement.lang = lang;
   };
 
@@ -33,9 +32,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLanguage(newLang);
   };
 
-  // Set initial direction on mount
+  // Set initial language on mount
   React.useEffect(() => {
-    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
     document.documentElement.lang = language;
   }, [language]);
 
