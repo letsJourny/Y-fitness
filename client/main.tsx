@@ -31,28 +31,19 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <ThemeProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <ToastContainer />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/registration" element={<Registration />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/plans" element={<Plans />} />
-                <Route path="/progress" element={<Progress />} />
-                <Route path="/subscription" element={<Subscription />} />
-                <Route path="/admin" element={<Admin />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </ThemeProvider>
-      </LanguageProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/plans" element={<Plans />} />
+          <Route path="/progress" element={<Progress />} />
+          <Route path="/subscription" element={<Subscription />} />
+          <Route path="/admin" element={<Admin />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 };
