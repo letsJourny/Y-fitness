@@ -2,11 +2,93 @@ import "./global.css";
 import React from "react";
 import { createRoot } from "react-dom/client";
 
+// API Configuration
+const API_BASE_URL = import.meta.env.PROD
+  ? "https://your-api-url.onrender.com/api" // Update this with your actual deployed API URL
+  : "http://localhost:3000/api";
+
+// Simple API client
+const api = {
+  async get(endpoint: string) {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`);
+    return response.json();
+  },
+
+  async post(endpoint: string, data: any) {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+};
+
 function App() {
+  const [apiStatus, setApiStatus] = React.useState<string>("Checking...");
+  const [subscriptionPlans, setSubscriptionPlans] = React.useState<any[]>([]);
+
+  // Test API connection on load
+  React.useEffect(() => {
+    const testApi = async () => {
+      try {
+        const healthCheck = await api.get("/ping");
+        setApiStatus(`✅ Connected: ${healthCheck.message}`);
+
+        // Try to load subscription plans
+        const plans = await api.get("/subscription-plans");
+        if (plans.success) {
+          setSubscriptionPlans(plans.data);
+        }
+      } catch (error) {
+        setApiStatus(`❌ API Error: ${error}`);
+      }
+    };
+
+    testApi();
+  }, []);
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const result = await api.post("/contact", {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+      });
+
+      if (result.success) {
+        alert("Message sent successfully!");
+        e.currentTarget.reset();
+      } else {
+        alert("Error sending message: " + result.message);
+      }
+    } catch (error) {
+      alert("Error: " + error);
+    }
+  };
+
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      {/* API Status */}
+      <div
+        style={{
+          backgroundColor: "#f0f9ff",
+          padding: "10px",
+          borderRadius: "5px",
+          marginBottom: "20px",
+          border: "1px solid #0ea5e9",
+        }}
+      >
+        <strong>🔗 API Status:</strong> {apiStatus}
+        <br />
+        <small>API URL: {API_BASE_URL}</small>
+      </div>
+
       <h1 style={{ color: "#2563eb", marginBottom: "20px" }}>
-        Yousef Recharge - Fitness Platform
+        🏋️‍♂️ Yousef Recharge - Fitness Platform
       </h1>
 
       <div style={{ marginBottom: "30px" }}>
@@ -28,6 +110,74 @@ function App() {
           Get Started
         </button>
       </div>
+
+      {/* Subscription Plans from Real API */}
+      {subscriptionPlans.length > 0 && (
+        <div style={{ marginBottom: "30px" }}>
+          <h2>💳 Live Subscription Plans</h2>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+              gap: "15px",
+            }}
+          >
+            {subscriptionPlans.map((plan, index) => (
+              <div
+                key={plan.id || index}
+                style={{
+                  backgroundColor: "#f3f4f6",
+                  padding: "15px",
+                  borderRadius: "5px",
+                  border: plan.isPopular
+                    ? "2px solid #2563eb"
+                    : "1px solid #d1d5db",
+                }}
+              >
+                <h3 style={{ margin: "0 0 10px 0", color: "#1f2937" }}>
+                  {plan.name} {plan.isPopular && "⭐"}
+                </h3>
+                <div
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                    color: "#2563eb",
+                  }}
+                >
+                  {plan.price} {plan.currency}
+                </div>
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#6b7280",
+                    marginBottom: "10px",
+                  }}
+                >
+                  per {plan.interval}
+                </div>
+                <p style={{ fontSize: "14px", color: "#4b5563" }}>
+                  {plan.description}
+                </p>
+                {plan.features && (
+                  <ul
+                    style={{
+                      fontSize: "12px",
+                      color: "#6b7280",
+                      paddingLeft: "20px",
+                    }}
+                  >
+                    {plan.features
+                      .slice(0, 3)
+                      .map((feature: string, i: number) => (
+                        <li key={i}>{feature}</li>
+                      ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div style={{ marginBottom: "30px" }}>
         <h2>💪 Workout Plans</h2>
@@ -165,6 +315,7 @@ function App() {
         </div>
       </div>
 
+      {/* Working Contact Form */}
       <div
         style={{
           backgroundColor: "#f3f4f6",
@@ -172,12 +323,14 @@ function App() {
           borderRadius: "5px",
         }}
       >
-        <h2>📝 Registration</h2>
-        <form style={{ maxWidth: "400px" }}>
+        <h2>📝 Contact Us (Live API Test)</h2>
+        <form onSubmit={handleContactSubmit} style={{ maxWidth: "400px" }}>
           <div style={{ marginBottom: "10px" }}>
             <input
               type="text"
+              name="name"
               placeholder="Full Name"
+              required
               style={{
                 width: "100%",
                 padding: "10px",
@@ -189,7 +342,9 @@ function App() {
           <div style={{ marginBottom: "10px" }}>
             <input
               type="email"
+              name="email"
               placeholder="Email"
+              required
               style={{
                 width: "100%",
                 padding: "10px",
@@ -199,14 +354,17 @@ function App() {
             />
           </div>
           <div style={{ marginBottom: "10px" }}>
-            <input
-              type="number"
-              placeholder="Age"
+            <textarea
+              name="message"
+              placeholder="Your message..."
+              required
               style={{
                 width: "100%",
                 padding: "10px",
                 border: "1px solid #ccc",
                 borderRadius: "5px",
+                minHeight: "80px",
+                resize: "vertical",
               }}
             />
           </div>
@@ -222,9 +380,30 @@ function App() {
               cursor: "pointer",
             }}
           >
-            Join Yousef Recharge
+            Send Message (Test API)
           </button>
         </form>
+      </div>
+
+      <div
+        style={{
+          marginTop: "30px",
+          padding: "15px",
+          backgroundColor: "#f0f9ff",
+          borderRadius: "5px",
+        }}
+      >
+        <h3>🚀 Deployment Ready!</h3>
+        <p>This app is ready to connect to a live backend API. To deploy:</p>
+        <ol>
+          <li>
+            Run <code>./deploy.sh</code> to deploy the backend
+          </li>
+          <li>
+            Update <code>API_BASE_URL</code> in this file with your live API URL
+          </li>
+          <li>Deploy this frontend to Vercel, Netlify, or similar</li>
+        </ol>
       </div>
     </div>
   );
