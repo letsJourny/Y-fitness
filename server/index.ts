@@ -234,6 +234,17 @@ const port = parseInt(process.env.PORT || "3000");
 const server = createServer();
 
 if (process.env.NODE_ENV !== "test") {
+  // Add process error handlers
+  process.on("uncaughtException", (err) => {
+    console.error("❌ Uncaught Exception:", err);
+    process.exit(1);
+  });
+
+  process.on("unhandledRejection", (reason, promise) => {
+    console.error("❌ Unhandled Rejection at:", promise, "reason:", reason);
+    process.exit(1);
+  });
+
   server
     .listen(port, "0.0.0.0", () => {
       console.log(`🚀 Server running on port ${port}`);
