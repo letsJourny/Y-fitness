@@ -1,5 +1,5 @@
 import "./global.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 
 // API Configuration - fallback for development
