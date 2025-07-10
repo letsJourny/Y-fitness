@@ -2,179 +2,232 @@ import "./global.css";
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-// Simple static pages without any hooks
-function HomePage() {
+function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <nav className="bg-blue-600 text-white p-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Yousef Recharge</h1>
-          <div className="space-x-4">
-            <a href="#" className="hover:underline">
-              Home
-            </a>
-            <a href="#plans" className="hover:underline">
-              Plans
-            </a>
-            <a href="#progress" className="hover:underline">
-              Progress
-            </a>
-            <a href="#registration" className="hover:underline">
-              Sign Up
-            </a>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h1 style={{ color: "#2563eb", marginBottom: "20px" }}>
+        Yousef Recharge - Fitness Platform
+      </h1>
+
+      <div style={{ marginBottom: "30px" }}>
+        <h2>🏠 Welcome</h2>
+        <p>
+          Transform your body, transform your life with personalized fitness
+          plans.
+        </p>
+        <button
+          style={{
+            backgroundColor: "#2563eb",
+            color: "white",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Get Started
+        </button>
+      </div>
+
+      <div style={{ marginBottom: "30px" }}>
+        <h2>💪 Workout Plans</h2>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "20px",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#f3f4f6",
+              padding: "15px",
+              borderRadius: "5px",
+            }}
+          >
+            <h3>Beginner Full Body</h3>
+            <p>30 min • 4 exercises • 150 cal</p>
+          </div>
+          <div
+            style={{
+              backgroundColor: "#f3f4f6",
+              padding: "15px",
+              borderRadius: "5px",
+            }}
+          >
+            <h3>HIIT Cardio</h3>
+            <p>20 min • 3 exercises • 200 cal</p>
           </div>
         </div>
-      </nav>
+      </div>
 
-      <main className="max-w-7xl mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Transform Your Body, Transform Your Life
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join Yousef recharge and discover your ultimate fitness potential
-            with personalized workout plans, nutrition guidance, and expert
-            coaching.
-          </p>
-          <div className="mt-8 space-x-4">
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700">
-              Get Started
-            </button>
-            <button className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50">
-              Learn More
-            </button>
+      <div style={{ marginBottom: "30px" }}>
+        <h2>🥗 Meal Plans</h2>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "20px",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#f3f4f6",
+              padding: "15px",
+              borderRadius: "5px",
+            }}
+          >
+            <h3>Protein Smoothie</h3>
+            <p>320 cal • 25g protein • 5 min prep</p>
+          </div>
+          <div
+            style={{
+              backgroundColor: "#f3f4f6",
+              padding: "15px",
+              borderRadius: "5px",
+            }}
+          >
+            <h3>Quinoa Bowl</h3>
+            <p>450 cal • 18g protein • 25 min prep</p>
           </div>
         </div>
+      </div>
 
-        <div id="plans" className="mb-16">
-          <h3 className="text-3xl font-bold text-center mb-8">
-            Workout & Meal Plans
-          </h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h4 className="text-xl font-bold mb-4">💪 Workout Templates</h4>
-              <div className="space-y-4">
-                <div className="bg-white p-4 rounded border">
-                  <h5 className="font-semibold">Beginner Full Body</h5>
-                  <p className="text-gray-600 text-sm">
-                    30 min • 4 exercises • 150 cal
-                  </p>
-                </div>
-                <div className="bg-white p-4 rounded border">
-                  <h5 className="font-semibold">HIIT Cardio</h5>
-                  <p className="text-gray-600 text-sm">
-                    20 min • 3 exercises • 200 cal
-                  </p>
-                </div>
-                <div className="bg-white p-4 rounded border">
-                  <h5 className="font-semibold">Upper Body Strength</h5>
-                  <p className="text-gray-600 text-sm">
-                    45 min • 6 exercises • 180 cal
-                  </p>
-                </div>
-              </div>
+      <div style={{ marginBottom: "30px" }}>
+        <h2>📊 Progress</h2>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "15px",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#dbeafe",
+              padding: "15px",
+              borderRadius: "5px",
+              textAlign: "center",
+            }}
+          >
+            <div
+              style={{ fontSize: "24px", fontWeight: "bold", color: "#2563eb" }}
+            >
+              450
             </div>
-
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h4 className="text-xl font-bold mb-4">🥗 Meal Templates</h4>
-              <div className="space-y-4">
-                <div className="bg-white p-4 rounded border">
-                  <h5 className="font-semibold">Protein Power Smoothie</h5>
-                  <p className="text-gray-600 text-sm">
-                    320 cal • 25g protein • 5 min prep
-                  </p>
-                </div>
-                <div className="bg-white p-4 rounded border">
-                  <h5 className="font-semibold">Mediterranean Quinoa Bowl</h5>
-                  <p className="text-gray-600 text-sm">
-                    450 cal • 18g protein • 25 min prep
-                  </p>
-                </div>
-                <div className="bg-white p-4 rounded border">
-                  <h5 className="font-semibold">Grilled Salmon & Vegetables</h5>
-                  <p className="text-gray-600 text-sm">
-                    380 cal • 32g protein • 30 min prep
-                  </p>
-                </div>
-              </div>
+            <div style={{ fontSize: "12px" }}>Calories Burned</div>
+          </div>
+          <div
+            style={{
+              backgroundColor: "#dcfce7",
+              padding: "15px",
+              borderRadius: "5px",
+              textAlign: "center",
+            }}
+          >
+            <div
+              style={{ fontSize: "24px", fontWeight: "bold", color: "#16a34a" }}
+            >
+              1,240
             </div>
+            <div style={{ fontSize: "12px" }}>Calories Consumed</div>
+          </div>
+          <div
+            style={{
+              backgroundColor: "#fed7aa",
+              padding: "15px",
+              borderRadius: "5px",
+              textAlign: "center",
+            }}
+          >
+            <div
+              style={{ fontSize: "24px", fontWeight: "bold", color: "#ea580c" }}
+            >
+              3/4
+            </div>
+            <div style={{ fontSize: "12px" }}>Weekly Workouts</div>
+          </div>
+          <div
+            style={{
+              backgroundColor: "#e9d5ff",
+              padding: "15px",
+              borderRadius: "5px",
+              textAlign: "center",
+            }}
+          >
+            <div
+              style={{ fontSize: "24px", fontWeight: "bold", color: "#9333ea" }}
+            >
+              5
+            </div>
+            <div style={{ fontSize: "12px" }}>Achievements</div>
           </div>
         </div>
+      </div>
 
-        <div id="progress" className="mb-16">
-          <h3 className="text-3xl font-bold text-center mb-8">
-            Progress Tracking
-          </h3>
-          <div className="grid md:grid-cols-4 gap-6">
-            <div className="bg-blue-50 p-6 rounded-lg text-center">
-              <div className="text-3xl font-bold text-blue-600">450</div>
-              <div className="text-sm text-gray-600">Calories Burned Today</div>
-            </div>
-            <div className="bg-green-50 p-6 rounded-lg text-center">
-              <div className="text-3xl font-bold text-green-600">1,240</div>
-              <div className="text-sm text-gray-600">Calories Consumed</div>
-            </div>
-            <div className="bg-orange-50 p-6 rounded-lg text-center">
-              <div className="text-3xl font-bold text-orange-600">3/4</div>
-              <div className="text-sm text-gray-600">Weekly Workouts</div>
-            </div>
-            <div className="bg-purple-50 p-6 rounded-lg text-center">
-              <div className="text-3xl font-bold text-purple-600">5</div>
-              <div className="text-sm text-gray-600">Achievements</div>
-            </div>
+      <div
+        style={{
+          backgroundColor: "#f3f4f6",
+          padding: "20px",
+          borderRadius: "5px",
+        }}
+      >
+        <h2>📝 Registration</h2>
+        <form style={{ maxWidth: "400px" }}>
+          <div style={{ marginBottom: "10px" }}>
+            <input
+              type="text"
+              placeholder="Full Name"
+              style={{
+                width: "100%",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+              }}
+            />
           </div>
-        </div>
-
-        <div id="registration" className="bg-gray-50 p-8 rounded-lg">
-          <h3 className="text-2xl font-bold text-center mb-6">
-            Start Your Fitness Journey
-          </h3>
-          <div className="max-w-md mx-auto">
-            <form className="space-y-4">
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="w-full p-3 border rounded-lg"
-              />
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="w-full p-3 border rounded-lg"
-              />
-              <input
-                type="number"
-                placeholder="Age"
-                className="w-full p-3 border rounded-lg"
-              />
-              <select className="w-full p-3 border rounded-lg">
-                <option>Fitness Goal</option>
-                <option>Weight Loss</option>
-                <option>Muscle Gain</option>
-                <option>General Fitness</option>
-              </select>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700"
-              >
-                Sign Up Now
-              </button>
-            </form>
+          <div style={{ marginBottom: "10px" }}>
+            <input
+              type="email"
+              placeholder="Email"
+              style={{
+                width: "100%",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+              }}
+            />
           </div>
-        </div>
-      </main>
-
-      <footer className="bg-gray-800 text-white p-8 mt-16">
-        <div className="max-w-7xl mx-auto text-center">
-          <h4 className="text-xl font-bold mb-4">Yousef Recharge</h4>
-          <p className="text-gray-400">
-            Transform your fitness journey with us
-          </p>
-        </div>
-      </footer>
+          <div style={{ marginBottom: "10px" }}>
+            <input
+              type="number"
+              placeholder="Age"
+              style={{
+                width: "100%",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+              }}
+            />
+          </div>
+          <button
+            type="submit"
+            style={{
+              width: "100%",
+              backgroundColor: "#2563eb",
+              color: "white",
+              padding: "12px",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Join Yousef Recharge
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
 
-// Render the app
-const root = createRoot(document.getElementById("root")!);
-root.render(<HomePage />);
+createRoot(document.getElementById("root")!).render(<App />);
