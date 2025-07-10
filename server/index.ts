@@ -230,15 +230,16 @@ const port = parseInt(process.env.PORT || "3000");
 const server = createServer();
 
 if (process.env.NODE_ENV !== "test") {
-  server.listen(port, () => {
-    console.log(`🚀 Server running on http://localhost:${port}`);
-    console.log(`📚 API Documentation:`);
-    console.log(`   Auth: POST /api/auth/register, /api/auth/send-otp`);
-    console.log(`   Workouts: GET /api/exercises, /api/workout-templates`);
-    console.log(`   Meals: GET /api/meal-templates, POST /api/users/:id/meals`);
-    console.log(`   Progress: GET /api/users/:id/progress/analytics`);
-    console.log(`   Subscriptions: GET /api/subscription-plans`);
-  });
+  server
+    .listen(port, "0.0.0.0", () => {
+      console.log(`🚀 Server running on port ${port}`);
+      console.log(`📚 API endpoints available at /api/ping`);
+      console.log(`✅ Health check: /api/ping`);
+    })
+    .on("error", (err) => {
+      console.error("❌ Server failed to start:", err);
+      process.exit(1);
+    });
 }
 
 export default server;
