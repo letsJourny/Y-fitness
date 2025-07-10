@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: yousef-recharge-api
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/ping
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    autoDeploy: false
+
+databases:
+  - name: yousef-recharge-db
+    databaseName: yousef_recharge
+    user: yousef_user
+    plan: free
