@@ -89,7 +89,11 @@ export function createServer() {
 
   // Health check routes
   app.get("/api/ping", (_req, res) => {
-    res.json({ message: "Hello from Express server v2!" });
+    res.status(200).json({
+      message: "Hello from Express server v2!",
+      timestamp: new Date().toISOString(),
+      status: "healthy",
+    });
   });
 
   app.get("/api/demo", handleDemo);
